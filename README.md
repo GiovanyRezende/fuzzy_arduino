@@ -27,3 +27,7 @@ O circuito acende as cores de um LED RGB de acordo com a temperatura ambiente. A
 # O circuito e suas conexões
 ![logica_fuzzy](https://github.com/GiovanyRezende/fuzzy_arduino/assets/111097597/e0cc3f4e-4de6-42e3-9db3-d7acf32736d4)
 **Nota: o sensor DHT11 está sendo representado por um sensor de temperatura LM35. Considere o pino OUT do LM35 como o pino DATA do DHT11 desse projeto.**
+
+# O gráfico dos conjuntos nebulosos
+![WhatsApp Image 2023-12-20 at 20 46 57](https://github.com/GiovanyRezende/fuzzy_arduino/assets/111097597/dca6d456-1185-4b35-a292-1ac3b5735538)
+
