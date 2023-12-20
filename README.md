@@ -10,7 +10,7 @@
 Não dá para extrair um valor lógico de "A temperatura XºC é quente" em verdadeiro ou falso em todos os casos, mas sim a porcentagem da veracidade ("O quão quente é XºC"). A temperatura é o exemplo que será abordado no circuito.
 
 # O funcionamento do circuito
-O circuito acende as cores de um LED RGB de acordo com a temperatura ambiente. Ainda, há dois modos: *o modo de Lógica Proposicional e o modo de Lógica Fuzzy*. Com essas duas configurações, é possível comparar os funcionamento das duas lógicas em um agente.
+O circuito acende as cores de um LED RGB de acordo com a temperatura ambiente. Ainda, há dois modos: *o modo de Lógica Proposicional e o modo de Lógica Fuzzy*. Com essas duas configurações, é possível comparar os funcionamentos das duas lógicas em um agente.
 
 # Os materiais
 
