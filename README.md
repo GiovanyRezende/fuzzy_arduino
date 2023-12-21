@@ -44,5 +44,168 @@ Esses conjuntos são descritos por funções trapezoidais baseadas na tabela. En
 
 # O código
 
+## Bibliotecas e declaração de constantes e variáveis
+```
+#include <math.h>
+#include "dht.h"
+
+const int red = 9;
+const int green = 10;
+const int blue = 11;
+
+const int temp = A2;
+dht DHT;
+
+const int Button = 2;
+boolean lastButton = LOW;
+boolean currentButton = LOW;
+boolean something = false;
+const int led_test = 4; //na figura, está sendo representado pelo pino 3
+```
+
+## Setup
+```
+void setup() {
+  pinMode(red,OUTPUT);
+  pinMode(green,OUTPUT);
+  pinMode(blue,OUTPUT);
+  
+  pinMode(led_test,OUTPUT);
+  pinMode(Button,INPUT);
+}
+```
+## Funções trapezoidais
+```
+int cold(float T){
+  int x;
+  
+  if (T <= 12){
+    x = 255;
+  }
+  else if (T > 12 && T < 21){
+    x = ((21-T)/(21-12)) * 255; //map(T, 12, 21, 255, 0);
+  }
+  else if (T >= 21){
+    x = 0;
+  }
+  return round(x);
+}
+
+int comf(float T){
+  int y;
+  
+  if (T <= 12){
+    y = 0;
+  }
+  else if (T>12 && T<21){
+    y = ((T-12)/(21-12)) * 255; //map(T, 18, 21, 0, 255);
+  }
+  else if (T >= 21 && T <= 24){
+    y = 255;
+  }
+  else if (T > 24 && T < 33){
+    y = ((33-T)/(33-24)) * 255; //map(T, 24, 27, 255, 0);
+  }
+  else {
+    y = 0;
+  }
+  return round(y);
+}
+
+int hot(float T){
+  int z;
+  
+  if (T <= 24){
+    z = 0;
+  }
+  else if (T > 24 && T < 33){
+    z = ((T-24)/(33-24)) * 255; //map(T, 24, 33, 0, 255);
+  }
+  else if (T >= 33){
+    z = 255;
+  }
+  return round(z);
+}
+```
+
+## Função que muda a Lógica operante no circuito
+```
+boolean debounce(boolean last)
+{
+  boolean current = digitalRead(Button);
+  if (last != current)
+  {
+    delay(5);
+    current = digitalRead(Button);
+  }
+  return current;
+}
+```
+
+## Loop
+```DHT.read11(temp)``` é o comando que extrai os dados de temperatura/umidade do DHT11 e ```DHT.temperature``` é o valor da temperatura medida pelo sensor. Quando ```something``` é falso, o LED opcional fica apagado e o loop executa:
+```
+digitalWrite(led_test,LOW);
+    
+    if (DHT.temperature <= 21){
+      digitalWrite(blue,HIGH);
+    }
+    else{
+      digitalWrite(blue,LOW);
+    }
+
+    if (DHT.temperature >= 18 && temp <= 27){
+      digitalWrite(green,HIGH);
+    }
+    else{
+      digitalWrite(green,LOW);
+    }
+
+    if (DHT.temperature  >= 24){
+      digitalWrite(red,HIGH);
+    }
+    else{
+      digitalWrite(red,LOW);
+    }
+  }
+```
+Resumindo, nesse modo, é a Lógica Proposicional que está operando.
+
+Quando ```something``` é verdadeiro, o LED vermelho acende, mostrando que o modo operante é o da Lógica Fuzzy, e o loop executa:
+```
+digitalWrite(led_test,HIGH);
+    
+    analogWrite(red,r);
+    analogWrite(green,g);
+    analogWrite(blue,b); 
+```
+sendo que ```r```, ```g``` e ```b``` são previamente computados como:
+```
+  int  r = hot(DHT.temperature);
+  int  g = comf(DHT.temperature);
+  int  b = cold(DHT.temperature);
+```
+
+## Análise do funcionamento
+Analisando as cores do RGB no funcionamento da Lógica Proposicional, elas seguem o seguinte diagrama, uma vez que não há intersecções das três cores e de vermelho com azul:
+
+![](https://s4.static.brasilescola.uol.com.br/img/2019/04/sintese-aditiva(1).jpg)
+
+Com a Lógica Proposicional, o circuito aplicará 5V tanto no pino vermelho como no verde quando a temperatura que o sensor medir for 32ºC, pois essa temperatura está amplitude do ```Confortável``` e do ```Quente```.
+Já com a Lógica Nebulosa, o circuito aplicará uma porcentagem dos 5V, que vai de 0% à 100%. Em 32ºC, será aplicada uma tensão de 88,89% de 5V no pino vermelho e 11,11% de 5V no pino verde.
+
 # Conclusão
+Observando a diferença de comportamento do circuito entre as duas lógicas na mesma temperatura, é possível concluir que nem sempre a Lógica Proposicional é o suficiente para um projeto de Inteligência Artificial. No próprio exemplo da temperatura em 32ºC, a Lógica Proposicional diria que está entre o ```Confortável``` e o ```Quente```, mas não seria possível saber o quão intensas seriam essas classificações, o que se distancia da Linguagem Natural. Agora, com a Lógica Fuzzy, o agente consegue expressar que 32ºC é muito mais ```Quente``` do que ```Confortável```, aproximando a classificação de dados da LN.
+
+<div align= center>
+
+# Redes sociais e formas de contato
+
+
+
+[![logo](https://cdn-icons-png.flaticon.com/256/174/174857.png)](https://br.linkedin.com/in/giovanyrezende)
+[![logo](https://images.crunchbase.com/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/v1426048404/y4lxnqcngh5dvoaz06as.png)](https://github.com/GiovanyRezende)[
+![logo](https://logospng.org/download/gmail/logo-gmail-256.png)](mailto:giovanyrmedeiros@gmail.com)
+
+</div>
 
