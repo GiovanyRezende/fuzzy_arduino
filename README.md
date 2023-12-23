@@ -147,21 +147,21 @@ boolean debounce(boolean last)
 ```
 digitalWrite(led_test,LOW);
     
-    if (DHT.temperature <= 21){
+    if (DHT.temperature < 21){
       digitalWrite(blue,HIGH);
     }
     else{
       digitalWrite(blue,LOW);
     }
 
-    if (DHT.temperature >= 18 && temp <= 27){
+    if (DHT.temperature > 12 && temp < 33){
       digitalWrite(green,HIGH);
     }
     else{
       digitalWrite(green,LOW);
     }
 
-    if (DHT.temperature  >= 24){
+    if (DHT.temperature  > 24){
       digitalWrite(red,HIGH);
     }
     else{
