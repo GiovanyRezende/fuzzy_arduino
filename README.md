@@ -19,7 +19,7 @@ O circuito acende as cores de um LED RGB de acordo com a temperatura ambiente. A
 |Arduino Uno|1|
 |LED RGB|1|
 |Botão|1|
-|Resistor 220 Ω|3 ou 4|
+|Resistor 220 Ω|4 ou 5|
 |Sensor de temperatura DHT11|1|
 |LED vermelho (opcional)|1|
 |Jumpers ou conexões|±11|
